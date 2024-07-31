@@ -1,0 +1,10 @@
+@base=http://localhost:8080
+
+### Execute code
+POST {{base}}/execute
+Content-Type: application/json
+
+{
+  "code": "package main import \"fmt\" func main() { fmt.Println(\"Hello, Go!\") }",
+  "lang":"golang"
+}
