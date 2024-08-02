@@ -7,7 +7,7 @@ import (
 )
 
 func executeGoScriptAsString(code string) string {
-	code = "package main\n\nimport \"fmt\"\n\nfunc main() {\n  for i := 0; i < 5; i++ {\n    fmt.Println(\"Hello, World!\")\n  }\n}"
+	//code = "package main\n\nimport \"fmt\"\n\nfunc main() {\n  for i := 0; i < 5; i++ {\n    fmt.Println(\"Hello, World!\")\n  }\n}"
 	// Create a temporary file
 	tmpFile, tempFileErr := os.CreateTemp("", "temp-*.go")
 	if tempFileErr != nil {

@@ -14,6 +14,7 @@ import (
 )
 
 func executeGoScriptAsString(code string) string {
+	fmt.Println("Executing executeGoScriptAsString...")
 	// Create a temporary file
 	tmpFile, tempFileErr := os.CreateTemp("", "temp-*.go")
 	if tempFileErr != nil {
@@ -61,7 +62,7 @@ func createContainerAndRunCode() {
 	}
 	defer cli.Close()
 
-	reader, err := cli.ImagePull(ctx, "docker.io/library/alpine", image.PullOptions{})
+	reader, err := cli.ImagePull(ctx, "94351554/go-runtime:v0.1", image.PullOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -73,8 +74,8 @@ func createContainerAndRunCode() {
 	io.Copy(os.Stdout, reader)
 
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
-		Image: "alpine",
-		Cmd:   []string{"echo", "hello world"},
+		Image: "94351554/go-runtime:v0.2",
+		Cmd:   []string{"./main"},
 		Tty:   false,
 	}, nil, nil, nil, "")
 	if err != nil {
@@ -116,12 +117,12 @@ func createContainerAndRunCode() {
 
 	// === Execute cli command ./images/go/main test ===
 	// Create a command
-	cmd := exec.Command("./images/go/main", "process", "")
+	// cmd := exec.Command("./images/go/main", "process", "")
 	// Run the command and capture the output
-	output, err := cmd.Output()
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
+	// output, err := cmd.Output()
+	// if err != nil {
+	// 	fmt.Println("Error: ", err)
+	// }
 	// Print output
-	fmt.Println(string(output))
+	// fmt.Println(string(output))
 }
