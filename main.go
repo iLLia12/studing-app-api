@@ -1,16 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/iLLia12/studing-api/internal/executor"
+	ex "github.com/iLLia12/studing-api/pkg/executor"
 	"net/http"
 )
-
-type CodeExecuteData struct {
-	Code string `json:"code"`
-	Lang string `json:"lang"`
-}
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -43,14 +37,14 @@ func main() {
 
 func runCode(c *gin.Context) {
 	// Fetch POST data from Context and bind it to the data var
-	var data CodeExecuteData
+	var data ex.CodeExecuteData
 	if err := c.BindJSON(&data); err != nil {
 		return
 	}
 
-	output := executor.Run(data.Code)
+	output := ex.Run(data)
 
-	fmt.Println(string(output))
+	//fmt.Println(string(output))
 
 	c.IndentedJSON(http.StatusOK, string(output))
 }
