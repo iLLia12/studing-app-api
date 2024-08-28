@@ -1,25 +1,22 @@
 package executor
 
 import (
-	"fmt"
 	"os/exec"
 )
 
-type CodeExecuteData struct {
+type Payload struct {
 	Code string `json:"code"`
 	Lang string `json:"lang"`
 }
 
-func Run(data CodeExecuteData) string {
-	return execCommand("docker", "run", "--rm", "94351554/go-runtime:v0.3", "go", "run", "main.go", "-code", data.Code, "-lang", data.Lang)
+func Run(data Payload) []byte {
+	return execCommand("docker", "run", "--rm", "hello-world")
+	//c := `docker run --rm 94351554/go-runtime go run main.go -code 'package main; import "fmt"; func main(){ fmt.Println("Hello world") }' -lang go`
+	//return execCommand("docker", "run", "--rm", "94351554/go-runtime", "go", "run", "main.go", "-code", c, "-lang", data.Lang)
 }
 
-func execCommand(name string, arg ...string) string {
+func execCommand(name string, arg ...string) []byte {
 	cmd := exec.Command(name, arg...)
-	output, сombinedOutputErr := cmd.CombinedOutput()
-	if сombinedOutputErr != nil {
-		fmt.Println("Error running Go code:", сombinedOutputErr)
-	}
-	fmt.Println(string(output))
-	return string(output)
+	output, _ := cmd.Output()
+	return output
 }
