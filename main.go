@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	ex "github.com/iLLia12/studing-api/pkg/executor"
 	"net/http"
-	"fmt"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
