@@ -1,0 +1,12 @@
+### Health check
+GET http://127.0.0.1:8080/hello
+
+### Execute code
+POST http://localhost:8080/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "fmt.Println(\"Hello from API\")",
+  "lang": "go"
+}

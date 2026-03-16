@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	ex "github.com/iLLia12/studing-api/pkg/executor"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	ex "github.com/iLLia12/studing-api/pkg/runner"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -23,11 +24,16 @@ func CORSMiddleware() gin.HandlerFunc {
 func main() {
 	router := gin.Default()
 	router.Use(CORSMiddleware())
+	router.GET("/hello", test)
 	router.POST("/execute", runCode)
 	err := router.Run("localhost:8080")
 	if err != nil {
 		return
 	}
+}
+
+func test(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "hello world",})
 }
 
 func runCode(c *gin.Context) {
